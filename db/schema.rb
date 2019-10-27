@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_25_020951) do
+ActiveRecord::Schema.define(version: 2019_10_27_033516) do
 
   create_table "appointments", force: :cascade do |t|
     t.datetime "visit"
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 2019_10_25_020951) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["patient_id"], name: "index_appointments_on_patient_id"
     t.index ["physician_id"], name: "index_appointments_on_physician_id"
+  end
+
+  create_table "offices", force: :cascade do |t|
+    t.string "street_address"
+    t.string "zip"
+    t.string "phone"
+    t.integer "physician_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["physician_id"], name: "index_offices_on_physician_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -37,4 +47,5 @@ ActiveRecord::Schema.define(version: 2019_10_25_020951) do
 
   add_foreign_key "appointments", "patients"
   add_foreign_key "appointments", "physicians"
+  add_foreign_key "offices", "physicians"
 end
